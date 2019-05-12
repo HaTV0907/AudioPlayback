@@ -91,16 +91,16 @@ void WaveRecorderProcess(void)
   f_unlink (REC_WAVE_NAME);
   
   /* Open the file to write on it */
-  if ((AppliState == APPLICATION_IDLE) || (f_open(&WavFile, REC_WAVE_NAME, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK))
-  {   
-    while(1)
-    {
+  // if ((AppliState == APPLICATION_IDLE) || (f_open(&WavFile, REC_WAVE_NAME, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK))
+  // {   
+  //   while(1)
+  //   {
      /* Toggle LED5 in infinite loop to signal that: USB Flash Disk is not connected/removed
       or an issue has occurred when creating/opening Wave file */
-      BSP_LED_Toggle(LED5); 
-    }
-  }
-  else
+  //     BSP_LED_Toggle(LED5); 
+  //   }
+  // }
+  // else
   {
     WaveRecStatus = 1;
   }

@@ -27,17 +27,21 @@ extern volatile uint32_t LEDsState;
 /* Save MEMS ID */
 uint8_t MemsID = 0; 
 
-volatile uint32_t CmdIndex = CMD_PLAY;
+// volatile uint32_t CmdIndex = CMD_PLAY;
+volatile uint32_t CmdIndex = CMD_RECORD;
+
 volatile uint32_t PbPressCheck = 0;
 
 FATFS USBDISKFatFs;           /* File system object for USB disk logical drive */
 char USBDISKPath[4];          /* USB Host logical drive path */
 USBH_HandleTypeDef hUSBHost; /* USB Host handle */
 
-MSC_ApplicationTypeDef AppliState = APPLICATION_IDLE;
-//MSC_ApplicationTypeDef AppliState = APPLICATION_START;
+// MSC_ApplicationTypeDef AppliState = APPLICATION_IDLE;
+MSC_ApplicationTypeDef AppliState = APPLICATION_START;
 
-static uint8_t  USBH_USR_ApplicationState = USBH_USR_FS_INIT;
+// static uint8_t  USBH_USR_ApplicationState = USBH_USR_FS_INIT;
+static uint8_t  USBH_USR_ApplicationState = USBH_USR_AUDIO;
+
 
 /* Private function prototypes -----------------------------------------------*/
 static void  TIM_LED_Config(void);
