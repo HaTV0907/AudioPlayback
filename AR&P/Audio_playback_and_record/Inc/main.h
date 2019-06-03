@@ -60,10 +60,14 @@ MSC_ApplicationTypeDef;
 /* Defines for MEMS Acclerometer ID Types */
 #define MEMS_LIS3DSH     0x3F /* LIS3DSH MEMS Acclerometer ID */
 #define MEMS_LIS302DL    0x3B /* LIS302DL MEMS Acclerometer ID */
-                                                                                    
+                                                                    
+/* Volume control with ext trigger on PC9*/
+#define ExtTrigger_Pin GPIO_PIN_9
+#define ExtTrigger_GPIO_Port GPIOC
+#define ExtTrigger_EXTI_IRQn EXTI9_5_IRQn  
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void Error_Handler(void);
-
+void extTrigger_Init(void);
 #endif /* __MAIN_H */
 

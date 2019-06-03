@@ -95,6 +95,8 @@ int main(void)
   
   /* Initialize User Button */
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
+  /* Initialize second button for volume control */\
+  extTrigger_Init();
   
   /*##-1- Link the USB Host disk I/O driver ##################################*/
   if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == 0)
@@ -471,8 +473,29 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
       PressCount = 1;
     }
   }
-} 
+}
 
+/* Initialize PC9 as external trigger for volume control */
+void extTrigger_Init(void)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  // __HAL_RCC_GPIOC_CLK_ENABLE();
+  __GPIOC_CLK_ENABLE();
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = ExtTrigger_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(ExtTrigger_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+}
 #ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number

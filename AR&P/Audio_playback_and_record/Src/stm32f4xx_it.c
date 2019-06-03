@@ -1,7 +1,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /** @addtogroup STM32F4-Discovery_Audio_Player_Recorder
   * @{
   */
@@ -189,7 +188,34 @@ void TIM4_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&hTimLed);
 }
+/******************************************************************************/
+/* STM32F4xx Peripheral Interrupt Handlers                                    */
+/* Add here the Interrupt Handlers for the used peripherals.                  */
+/* For the available peripheral interrupt handler names,                      */
+/* please refer to the startup file (startup_stm32f4xx.s).                    */
+/******************************************************************************/
 
+/**
+  * @brief This function handles EXTI line[9:5] interrupts.
+  */
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+	static int volume = 25;
+	if(volume != 100)
+  {
+      volume += 25;
+  }
+  else
+  {
+			volume = 25;
+  }
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+  BSP_AUDIO_OUT_SetVolume(volume);
+  /* USER CODE END EXTI9_5_IRQn 1 */
+}
 /**
   * @brief  This function handles USB-On-The-Go FS global interrupt request.
   * @param  None

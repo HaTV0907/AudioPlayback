@@ -525,6 +525,13 @@ typedef struct
   *         is disabled and the application software has to enable this clock before 
   *         using it.   
   */
+#define __HAL_RCC_GPIOC_CLK_ENABLE()  do { \
+                                        __IO uint32_t tmpreg = 0x00U; \
+                                        SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);\
+                                        /* Delay after an RCC peripheral clock enabling */ \
+                                        tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);\
+                                        UNUSED(tmpreg); \
+                                          } while(0U)
 #define __GPIOA_CLK_ENABLE()         (RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOAEN))
 #define __GPIOB_CLK_ENABLE()         (RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOBEN))
 #define __GPIOC_CLK_ENABLE()         (RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOCEN))
