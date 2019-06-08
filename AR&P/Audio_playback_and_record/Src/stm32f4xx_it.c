@@ -20,6 +20,7 @@ extern I2S_HandleTypeDef       hAudioInI2s;
 extern __IO uint32_t CmdIndex;
 extern HCD_HandleTypeDef hHCD;
 
+extern volatile uint32_t RepeatState;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -201,7 +202,18 @@ void TIM4_IRQHandler(void)
 void EXTI3_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI3_IRQn 0 */
-
+  static int mState = 0;
+  if (mState == 0)
+  {
+    RepeatState = REPEAT_ON;
+    BSP_AUDIO_OUT_Pause();
+    mState++;
+  }
+  else
+  {
+    BSP_AUDIO_OUT_Resume();
+    mState = 0;
+  }
   /* USER CODE END EXTI3_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
   /* USER CODE BEGIN EXTI3_IRQn 1 */
