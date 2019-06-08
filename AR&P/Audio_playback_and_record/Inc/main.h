@@ -62,9 +62,12 @@ MSC_ApplicationTypeDef;
 #define MEMS_LIS302DL    0x3B /* LIS302DL MEMS Acclerometer ID */
                                                                     
 /* Volume control with ext trigger on PC9*/
-#define ExtTrigger_Pin GPIO_PIN_9
-#define ExtTrigger_GPIO_Port GPIOC
-#define ExtTrigger_EXTI_IRQn EXTI9_5_IRQn  
+#define VolDown_Pin GPIO_PIN_14
+#define VolDown_GPIO_Port GPIOB
+#define VolDown_EXTI_IRQn EXTI15_10_IRQn
+#define VolUp_Pin GPIO_PIN_9
+#define VolUp_GPIO_Port GPIOC
+#define VolUp_EXTI_IRQn EXTI9_5_IRQn
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void Error_Handler(void);

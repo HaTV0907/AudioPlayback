@@ -12,6 +12,11 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+#define VOLUME_DEFAULT	50
+#define VOLUME_MIN		0
+#define VOLUME_MAX		100
+#define VOLUME_STEP		10
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void NMI_Handler(void);

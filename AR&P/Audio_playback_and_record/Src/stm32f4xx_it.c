@@ -9,7 +9,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
+static int volume = VOLUME_DEFAULT;
 /* Timer used for LED blinking (defined in main.c */
 extern TIM_HandleTypeDef hTimLed;
 
@@ -201,20 +201,39 @@ void TIM4_IRQHandler(void)
 void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
-	static int volume = 25;
-	if(volume != 100)
-  {
-      volume += 25;
-  }
-  else
-  {
-			volume = 25;
-  }
-  /* USER CODE END EXTI9_5_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);
-  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+    if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_9) != RESET)
+    {
+      	if(volume != VOLUME_MAX)
+        {
+            volume += VOLUME_STEP;
+        }
+        else
+        {
+      		  volume = VOLUME_DEFAULT;
+        }
+    }
+  /* Clear Interrupt flag */
+  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
+  /* Set volume */
   BSP_AUDIO_OUT_SetVolume(volume);
-  /* USER CODE END EXTI9_5_IRQn 1 */
+}
+void EXTI15_10_IRQHandler(void)
+{
+  if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_14) != RESET)
+    {
+        if(volume != VOLUME_MIN)
+        {
+            volume -= VOLUME_STEP;
+        }
+        else
+        {
+            volume = VOLUME_DEFAULT;
+        }
+    }
+  /* Clear Interrupt flag */
+  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_14);
+  /* Set volume */
+  BSP_AUDIO_OUT_SetVolume(volume);
 }
 /**
   * @brief  This function handles USB-On-The-Go FS global interrupt request.
