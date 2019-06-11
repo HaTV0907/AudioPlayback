@@ -71,7 +71,7 @@ MSC_ApplicationTypeDef;
 #define VolDown_Pin GPIO_PIN_14
 #define VolDown_GPIO_Port GPIOB
 #define VolDown_EXTI_IRQn EXTI15_10_IRQn
-#define VolUp_Pin GPIO_PIN_9
+#define VolUp_Pin GPIO_PIN_8
 #define VolUp_GPIO_Port GPIOC
 #define VolUp_EXTI_IRQn EXTI9_5_IRQn
 #define Pause_Pin GPIO_PIN_3
