@@ -274,7 +274,7 @@ void EXTI15_10_IRQHandler(void)
     {
         if(volume != VOLUME_MIN)
         {
-            volume -= VOLUME_STEP;
+            volume -= VOLUME_STEP/2;
         }
         else
         {
